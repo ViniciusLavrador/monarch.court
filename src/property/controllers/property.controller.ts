@@ -21,7 +21,7 @@ export class PropertyController {
 
   @Get(':id')
   public async findOneById(@Param('id') id: PropertyDto.FindOnePropertyRequestDto['id']): Promise<Property> {
-    return this.service.findOne({ id });
+    return this.service.findOne(id);
   }
 
   @Put(':id/activate')
