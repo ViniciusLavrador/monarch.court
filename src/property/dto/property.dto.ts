@@ -1,6 +1,10 @@
-import { IsMongoId, IsString, IsUppercase } from 'class-validator';
+import { IsMongoId, IsOptional, IsString, IsUppercase, ValidateNested } from 'class-validator';
+import { BaseFilterDto } from 'src/common/interfaces/base-filter';
 
-export class CreatePropertyDto {
+// Base
+export class PropertyFilterDto extends BaseFilterDto {}
+
+export class CreatePropertyRequestDto {
   @IsString()
   name: string;
 
@@ -9,12 +13,23 @@ export class CreatePropertyDto {
   propertyType: string;
 }
 
-export class ActivatePropertyDto {
+export class ActivatePropertyRequestDto {
   @IsMongoId()
   id: string;
 }
 
-export class DeactivatePropertyDto {
+export class DeactivatePropertyRequestDto {
+  @IsMongoId()
+  id: string;
+}
+
+export class FindAllPropertiesRequestDto {
+  @ValidateNested()
+  @IsOptional()
+  filter?: PropertyFilterDto;
+}
+
+export class FindOnePropertyRequestDto {
   @IsMongoId()
   id: string;
 }

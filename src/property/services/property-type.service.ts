@@ -10,7 +10,7 @@ import * as PropertyTypeDTO from 'src/property/dto/property-type.dto';
 
 import { Status } from 'src/common/enums/status.enum';
 import { updateStatus } from 'src/common/helpers/status.helpers';
-import { FindOneOptions } from 'src/property/interfaces/property-type/service-methos-options';
+import { FindOnePropertyTypeOptions } from 'src/property/interfaces/property-type/service-methos-options';
 
 @Injectable()
 export class PropertyTypeService {
@@ -20,7 +20,7 @@ export class PropertyTypeService {
     return this.model.create(payload);
   }
 
-  async findOne<T>(value: T, options?: FindOneOptions): Promise<PropertyType> {
+  async findOne<T>(value: T, options?: FindOnePropertyTypeOptions): Promise<PropertyType> {
     let propertyType: PropertyType;
 
     if (options && options.by !== 'id') {

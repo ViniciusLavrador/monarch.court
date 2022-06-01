@@ -1,12 +1,8 @@
-import { IsEnum, IsMongoId, IsOptional, IsString, IsUppercase, ValidateNested } from 'class-validator';
-import { Status } from 'src/common/enums/status.enum';
+import { IsMongoId, IsOptional, IsString, IsUppercase, ValidateNested } from 'class-validator';
+import { BaseFilterDto } from 'src/common/interfaces/base-filter';
 
 // Base
-export class PropertyTypeFilterDto {
-  @IsEnum(Status)
-  @IsOptional()
-  status?: Status;
-}
+export class PropertyTypeFilterDto extends BaseFilterDto {}
 
 // Request
 export class CreatePropertyTypeRequestDto {
