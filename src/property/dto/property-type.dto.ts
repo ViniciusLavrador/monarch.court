@@ -1,24 +1,37 @@
-import { IsMongoId, IsString, IsUppercase } from 'class-validator';
+import { IsEnum, IsMongoId, IsOptional, IsString, IsUppercase, ValidateNested } from 'class-validator';
+import { Status } from 'src/common/enums/status.enum';
 
-export class CreatePropertyTypeDto {
+// Base
+export class PropertyTypeFilterDto {
+  @IsEnum(Status)
+  @IsOptional()
+  status?: Status;
+}
+
+// Request
+export class CreatePropertyTypeRequestDto {
   @IsString()
   @IsUppercase()
   name: string;
 }
 
-export class ActivatePropertyTypeDto {
+export class ActivatePropertyTypeRequestDto {
   @IsMongoId()
   id: string;
 }
 
-export class DeactivatePropertyTypeDto {
+export class DeactivatePropertyTypeRequestDto {
   @IsMongoId()
   id: string;
 }
 
-export class FindAllPropertyTypesDto {}
+export class FindAllPropertyTypesRequestDto {
+  @ValidateNested()
+  @IsOptional()
+  filter?: PropertyTypeFilterDto;
+}
 
-export class FindOnePropertyTypeDto {
+export class FindOnePropertyTypeRequestDto {
   @IsMongoId()
   id: string;
 }

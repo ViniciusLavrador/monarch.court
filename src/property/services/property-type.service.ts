@@ -16,7 +16,7 @@ import { FindOneOptions } from 'src/property/interfaces/property-type/service-me
 export class PropertyTypeService {
   constructor(@InjectModel(PropertyType.name) private readonly model: Model<PropertyType>) {}
 
-  async create(payload: PropertyTypeDTO.CreatePropertyTypeDto): Promise<PropertyType> {
+  async create(payload: PropertyTypeDTO.CreatePropertyTypeRequestDto): Promise<PropertyType> {
     return this.model.create(payload);
   }
 
@@ -35,15 +35,15 @@ export class PropertyTypeService {
     return propertyType;
   }
 
-  async findAll(_payload: PropertyTypeDTO.FindAllPropertyTypesDto): Promise<PropertyType[]> {
-    return await this.model.find();
+  async findAll(payload: PropertyTypeDTO.FindAllPropertyTypesRequestDto): Promise<PropertyType[]> {
+    return await this.model.find(payload.filter);
   }
 
-  async activate(payload: PropertyTypeDTO.ActivatePropertyTypeDto): Promise<void> {
+  async activate(payload: PropertyTypeDTO.ActivatePropertyTypeRequestDto): Promise<void> {
     updateStatus<Property>(await this.model.findById(payload.id), Status.ACTIVE);
   }
 
-  async deactivate(payload: PropertyTypeDTO.DeactivatePropertyTypeDto): Promise<void> {
+  async deactivate(payload: PropertyTypeDTO.DeactivatePropertyTypeRequestDto): Promise<void> {
     updateStatus<Property>(await this.model.findById(payload.id), Status.INACTIVE);
   }
 }
