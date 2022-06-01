@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 
 import * as PropertyTypeDto from 'src/property/dto/property-type.dto';
 import { PropertyType } from 'src/property/entities/property-type.entity';
@@ -12,6 +12,11 @@ export class PropertyTypeController {
   @Post()
   public async createPropertyType(@Body() payload: PropertyTypeDto.CreatePropertyTypeDto): Promise<PropertyType> {
     return this.service.create(payload);
+  }
+
+  @Get(':id')
+  public async findOneById(@Param('id') id: PropertyTypeDto.FindOnePropertyTypeDto['id']): Promise<PropertyType> {
+    return this.service.findOne({ id });
   }
 
   @Put(':id/activate')
