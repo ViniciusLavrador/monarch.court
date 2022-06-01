@@ -14,6 +14,11 @@ export class PropertyTypeController {
     return this.service.create(payload);
   }
 
+  @Get()
+  public async findAll(payload: PropertyTypeDto.FindAllPropertyTypesDto): Promise<PropertyType[]> {
+    return this.service.findAll(payload);
+  }
+
   @Get(':id')
   public async findOneById(@Param('id') id: PropertyTypeDto.FindOnePropertyTypeDto['id']): Promise<PropertyType> {
     return this.service.findOne({ id });

@@ -1,11 +1,9 @@
 import { Model } from 'mongoose';
 
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
 import { Property } from 'src/property/entities/property.entity';
-import { PropertyType } from 'src/property/entities/property-type.entity';
-
 import * as PropertyDTO from 'src/property/dto/property.dto';
 import { Status } from 'src/common/enums/status.enum';
 import { updateStatus } from 'src/common/helpers/status.helpers';

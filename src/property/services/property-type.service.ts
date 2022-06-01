@@ -35,6 +35,10 @@ export class PropertyTypeService {
     return propertyType;
   }
 
+  async findAll(_payload: PropertyTypeDTO.FindAllPropertyTypesDto): Promise<PropertyType[]> {
+    return await this.model.find();
+  }
+
   async activate(payload: PropertyTypeDTO.ActivatePropertyTypeDto): Promise<void> {
     updateStatus<Property>(await this.model.findById(payload.id), Status.ACTIVE);
   }

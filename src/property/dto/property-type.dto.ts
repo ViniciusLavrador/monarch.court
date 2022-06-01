@@ -16,6 +16,8 @@ export class DeactivatePropertyTypeDto {
   id: string;
 }
 
+export class FindAllPropertyTypesDto {}
+
 export class FindOnePropertyTypeDto {
   @IsMongoId()
   id: string;
