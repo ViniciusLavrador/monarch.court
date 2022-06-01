@@ -6,6 +6,7 @@ import { AppController } from './app.controller';
 
 import { ConfigInterface, loader, validationSchema } from './config';
 import { UsersModule } from './users/users.module';
+import { PropertyModule } from './property/property.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { UsersModule } from './users/users.module';
     }),
 
     UsersModule,
+    PropertyModule,
   ],
   controllers: [AppController],
   providers: [],
