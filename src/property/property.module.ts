@@ -1,13 +1,15 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { PropertyService } from './property.service';
-import { PropertyController } from './property.controller';
+import { PropertyService } from './services/property.service';
+import { PropertyController } from './controllers/property.controller';
 import { Property, PropertySchema } from './entities/property.entity';
 import { PropertyType, PropertyTypeSchema } from './entities/property-type.entity';
+import { PropertyTypeService } from './services/property-type.service';
+import { PropertyTypeController } from './controllers/property-type.controller';
 
 @Module({
-  controllers: [PropertyController],
-  providers: [PropertyService],
+  controllers: [PropertyController, PropertyTypeController],
+  providers: [PropertyService, PropertyTypeService],
   imports: [
     MongooseModule.forFeature([
       { name: Property.name, schema: PropertySchema },

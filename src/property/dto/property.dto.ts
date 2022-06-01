@@ -1,4 +1,4 @@
-import { IsString, IsUppercase } from 'class-validator';
+import { IsMongoId, IsString, IsUppercase } from 'class-validator';
 
 export class CreatePropertyDto {
   @IsString()
@@ -7,4 +7,14 @@ export class CreatePropertyDto {
   @IsString()
   @IsUppercase()
   propertyType: string;
+}
+
+export class ActivatePropertyDto {
+  @IsMongoId()
+  id: string;
+}
+
+export class DeactivatePropertyDto {
+  @IsMongoId()
+  id: string;
 }
