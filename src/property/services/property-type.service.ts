@@ -59,8 +59,6 @@ export class PropertyTypeService {
     updateStatus<Property>(await this.model.findById(payload.id), Status.ACTIVE);
   }
 
-  a = new RegExp(/\Dg/);
-
   /**
    * Deactivate a Property Type
    */
