@@ -16,10 +16,20 @@ import { FindOnePropertyTypeOptions } from 'src/property/interfaces/property-typ
 export class PropertyTypeService {
   constructor(@InjectModel(PropertyType.name) private readonly model: Model<PropertyType>) {}
 
+  /**
+   * Creates a new property type.
+   *
+   * Property Type Contraints:
+   * - unique
+   * - uppercase
+   */
   async create(payload: PropertyTypeDTO.CreatePropertyTypeRequestDto): Promise<PropertyType> {
     return this.model.create(payload);
   }
 
+  /**
+   * Finds a single Property Type
+   */
   async findOne<T>(value: T, options?: FindOnePropertyTypeOptions): Promise<PropertyType> {
     let propertyType: PropertyType;
 
@@ -35,14 +45,25 @@ export class PropertyTypeService {
     return propertyType;
   }
 
+  /**
+   * Finds all Property Types
+   */
   async findAll(payload: PropertyTypeDTO.FindAllPropertyTypesRequestDto): Promise<PropertyType[]> {
     return await this.model.find(payload.filter);
   }
 
+  /**
+   * Activate a Property Type
+   */
   async activate(payload: PropertyTypeDTO.ActivatePropertyTypeRequestDto): Promise<void> {
     updateStatus<Property>(await this.model.findById(payload.id), Status.ACTIVE);
   }
 
+  a = new RegExp(/\Dg/);
+
+  /**
+   * Deactivate a Property Type
+   */
   async deactivate(payload: PropertyTypeDTO.DeactivatePropertyTypeRequestDto): Promise<void> {
     updateStatus<Property>(await this.model.findById(payload.id), Status.INACTIVE);
   }
