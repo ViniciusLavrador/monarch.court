@@ -11,6 +11,7 @@ import * as PropertyTypeDTO from 'src/property/dto/property-type.dto';
 import { Status } from 'src/common/enums/status.enum';
 import { updateStatus } from 'src/common/helpers/status.helpers';
 import { FindOnePropertyTypeOptions } from 'src/property/interfaces/property-type/service-methos-options';
+import { hardRemoveEntity } from 'src/common/helpers/entity.helpers';
 
 @Injectable()
 export class PropertyTypeService {
@@ -64,5 +65,16 @@ export class PropertyTypeService {
    */
   async deactivate(payload: PropertyTypeDTO.DeactivatePropertyTypeRequestDto): Promise<void> {
     updateStatus<Property>(await this.model.findById(payload.id), Status.INACTIVE);
+  }
+
+  /**
+   * Deactivate a Property Type
+   */
+  async remove(payload: PropertyTypeDTO.RemovePropertyTypeRequestDto): Promise<void> {
+    if (payload.options?.hardRemove) {
+      hardRemoveEntity(await this.model.findById(payload.id));
+    } else {
+      updateStatus<Property>(await this.model.findById(payload.id), Status.DELETED);
+    }
   }
 }

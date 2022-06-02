@@ -1,5 +1,5 @@
 import { IsMongoId, IsOptional, IsString, IsUppercase, ValidateNested } from 'class-validator';
-import { BaseFilterDto } from 'src/common/interfaces/base-filter';
+import { BaseFilterDto } from 'src/common/interfaces/base-interfaces';
 
 // Base
 export class PropertyFilterDto extends BaseFilterDto {}
