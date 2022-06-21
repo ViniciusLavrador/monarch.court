@@ -4,7 +4,10 @@ import * as PropertyDto from 'src/property/dto/property.dto';
 
 import { PropertyService } from 'src/property/services/property.service';
 import { Property } from 'src/property/entities/property.entity';
+import { ApiTags } from '@nestjs/swagger';
+import { DOC_TAGS } from 'src/common/contants/doc-tags.constants';
 
+@ApiTags(DOC_TAGS.PROPERTIES)
 @Controller()
 export class PropertyController {
   constructor(private readonly service: PropertyService) {}
@@ -20,25 +23,25 @@ export class PropertyController {
   }
 
   @Get('property/:id')
-  public async findOneById(@Param('id') id: PropertyDto.FindOnePropertyRequestDto['id']): Promise<Property> {
+  public async findOneById(@Param() { id }: PropertyDto.FindOnePropertyRequestDto): Promise<Property> {
     return this.service.findOne(id);
   }
 
-  @Delete('property-type/:id')
+  @Delete('property/:id')
   public async remove(
-    @Param('id') id: PropertyDto.RemovePropertyTypeRequestDto['id'],
-    @Body() options: PropertyDto.RemovePropertyTypeRequestDto['options'],
+    @Param() { id }: PropertyDto.RemovePropertyTypeRequestParamsDto,
+    @Body() { options }: PropertyDto.RemovePropertyTypeRequestBodyDto,
   ): Promise<void> {
     return this.service.remove({ id, options });
   }
 
   @Put('property/:id/activate')
-  public async activateProperty(@Param('id') id: PropertyDto.ActivatePropertyRequestDto['id']): Promise<void> {
+  public async activateProperty(@Param() { id }: PropertyDto.ActivatePropertyRequestDto): Promise<void> {
     return this.service.activate({ id });
   }
 
   @Put('property/:id/deactivate')
-  public async deactivateProperty(@Param('id') id: PropertyDto.ActivatePropertyRequestDto['id']): Promise<void> {
+  public async deactivateProperty(@Param() { id }: PropertyDto.ActivatePropertyRequestDto): Promise<void> {
     return this.service.deactivate({ id });
   }
 }

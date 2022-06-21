@@ -1,5 +1,5 @@
-import { IsBoolean, IsMongoId, IsOptional, IsString, IsUppercase, ValidateNested } from 'class-validator';
-import { BaseFilterDto, BaseRemoveOptionsDto } from 'src/common/interfaces/base-interfaces';
+import { IsMongoId, IsOptional, IsString, IsUppercase, ValidateNested } from 'class-validator';
+import { BaseFilterDto, BaseRemoveOptionsDto } from 'src/common/interfaces/base.dto';
 
 // Base
 export class PropertyFilterDto extends BaseFilterDto {}
@@ -34,11 +34,15 @@ export class FindOnePropertyRequestDto {
   id: string;
 }
 
-export class RemovePropertyTypeRequestDto {
+export class RemovePropertyTypeRequestParamsDto {
   @IsMongoId()
   id: string;
+}
 
+export class RemovePropertyTypeRequestBodyDto {
   @IsOptional()
   @ValidateNested()
   options?: BaseRemoveOptionsDto;
 }
+
+export type RemovePropertyTypeRequestDto = RemovePropertyTypeRequestParamsDto & RemovePropertyTypeRequestBodyDto;
