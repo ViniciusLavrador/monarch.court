@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 
 import * as PropertyDto from 'src/property/dto/property.dto';
 
@@ -22,6 +22,14 @@ export class PropertyController {
   @Get('property/:id')
   public async findOneById(@Param('id') id: PropertyDto.FindOnePropertyRequestDto['id']): Promise<Property> {
     return this.service.findOne(id);
+  }
+
+  @Delete('property-type/:id')
+  public async remove(
+    @Param('id') id: PropertyDto.RemovePropertyTypeRequestDto['id'],
+    @Body() options: PropertyDto.RemovePropertyTypeRequestDto['options'],
+  ): Promise<void> {
+    return this.service.remove({ id, options });
   }
 
   @Put('property/:id/activate')

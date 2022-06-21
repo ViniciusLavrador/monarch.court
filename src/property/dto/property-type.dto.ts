@@ -1,4 +1,4 @@
-import { IsBoolean, IsMongoId, IsOptional, IsString, IsUppercase, ValidateNested } from 'class-validator';
+import { IsMongoId, IsOptional, IsString, IsUppercase, ValidateNested } from 'class-validator';
 import { BaseFilterDto, BaseRemoveOptionsDto } from 'src/common/interfaces/base-interfaces';
 
 // Base
@@ -38,7 +38,6 @@ export class RemovePropertyTypeRequestDto {
   id: string;
 
   @IsOptional()
-  @IsBoolean()
   @ValidateNested()
   options?: BaseRemoveOptionsDto;
 }

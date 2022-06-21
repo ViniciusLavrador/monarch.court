@@ -10,12 +10,27 @@ import * as PropertyTypeDTO from 'src/property/dto/property-type.dto';
 
 import { Status } from 'src/common/enums/status.enum';
 import { updateStatus } from 'src/common/helpers/status.helpers';
-import { FindOnePropertyTypeOptions } from 'src/property/interfaces/property-type/service-methos-options';
 import { hardRemoveEntity } from 'src/common/helpers/entity.helpers';
 
 @Injectable()
 export class PropertyTypeService {
   constructor(@InjectModel(PropertyType.name) private readonly model: Model<PropertyType>) {}
+
+  private async _getById(id: string): Promise<PropertyType> {
+    const propertyType = await this.model.findById(id);
+
+    if (!propertyType) throw new NotFoundException(`property-type with id ${id} was not found`);
+
+    return propertyType;
+  }
+
+  private async _getByName(id: string): Promise<PropertyType> {
+    const propertyType = await this.model.findById(id);
+
+    if (!propertyType) throw new NotFoundException(`property-type with id ${id} was not found`);
+
+    return propertyType;
+  }
 
   /**
    * Creates a new property type.
@@ -29,21 +44,17 @@ export class PropertyTypeService {
   }
 
   /**
-   * Finds a single Property Type
+   * Finds a single Property Type by id
    */
-  async findOne<T>(value: T, options?: FindOnePropertyTypeOptions): Promise<PropertyType> {
-    let propertyType: PropertyType;
+  async findOne(id: string): Promise<PropertyType> {
+    return this._getById(id);
+  }
 
-    if (options && options.by !== 'id') {
-      propertyType = await this.model.findOne({ [options.by]: value });
-    } else {
-      propertyType = await this.model.findById(value);
-    }
-
-    if (!propertyType)
-      throw new NotFoundException(`property type with '${options.by || 'id'}' equals to '${value}' was not found`);
-
-    return propertyType;
+  /**
+   * Finds a single Property Type by name
+   */
+  async findOneByName(name: string): Promise<PropertyType> {
+    return this._getByName(name);
   }
 
   /**
@@ -68,13 +79,13 @@ export class PropertyTypeService {
   }
 
   /**
-   * Deactivate a Property Type
+   * Remove a Property Type
    */
   async remove(payload: PropertyTypeDTO.RemovePropertyTypeRequestDto): Promise<void> {
     if (payload.options?.hardRemove) {
       hardRemoveEntity(await this.model.findById(payload.id));
     } else {
-      updateStatus<Property>(await this.model.findById(payload.id), Status.DELETED);
+      updateStatus<PropertyType>(await this.findOne(payload.id), Status.DELETED);
     }
   }
 }
