@@ -15,8 +15,10 @@ export interface ConfigInterface {
   DB_URI: string;
 
   // Authentication
-  JWT_SECRET: string;
-  JWT_EXPIRES_IN: string;
+  JWT_ACCESS_TOKEN_SECRET: string;
+  JWT_ACCESS_TOKEN_EXPIRES_IN: string;
+  JWT_REFRESH_TOKEN_SECRET: string;
+  JWT_REFRESH_TOKEN_EXPIRES_IN: string;
 
   // Integrations
   GCM_API_KEY: string;
