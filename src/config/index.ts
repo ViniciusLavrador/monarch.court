@@ -11,4 +11,6 @@ export interface ConfigInterface {
   DB_NAME: string;
   DB_BASE_URI: string;
   DB_URI: string;
+
+  GCM_API_KEY: string;
 }

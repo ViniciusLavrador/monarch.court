@@ -10,4 +10,6 @@ export default Joi.object<ConfigInterface>({
   DB_PASSWORD: Joi.string().required(),
   DB_URI: Joi.string().uri().required(),
   DB_USER: Joi.string().required(),
+
+  GCM_API_KEY: Joi.string().required(),
 });
