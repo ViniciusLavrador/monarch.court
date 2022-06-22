@@ -10,6 +10,7 @@ export class User extends Document implements BaseEntity {
   @Prop({ required: true })
   email!: string;
 
+  // Authentication Related Fields
   @Exclude()
   @Prop({ required: true })
   password!: string;
@@ -17,6 +18,11 @@ export class User extends Document implements BaseEntity {
   @Prop()
   lastLogin: Date;
 
+  @Exclude()
+  @Prop()
+  currentRefreshTokenVersionHash: string;
+
+  // Authorization Related Fields
   @Prop({ required: false, default: [Role.USER] })
   roles: Role[];
 
