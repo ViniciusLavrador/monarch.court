@@ -1,6 +1,19 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 
+enum PointType {
+  POINT = 'Point',
+}
+
+@Schema()
+class Point extends mongoose.Document {
+  @Prop({ enum: PointType, required: true })
+  type: PointType;
+
+  @Prop({ required: true })
+  coordinates: number[];
+}
+
 @Schema()
 export class PropertyAddress extends mongoose.Document {
   @Prop()
@@ -23,6 +36,9 @@ export class PropertyAddress extends mongoose.Document {
 
   @Prop({ required: false })
   additionalAddressLine2?: string;
+
+  // @Prop({ type: Point, index: '2dsphere' })
+  // location: Point;
 }
 
 export const PropertySchema = SchemaFactory.createForClass(PropertyAddress);

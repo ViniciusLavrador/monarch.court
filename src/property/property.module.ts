@@ -6,14 +6,15 @@ import { Property, PropertySchema } from './entities/property.entity';
 import { PropertyType, PropertyTypeSchema } from './entities/property-type.entity';
 import { PropertyTypeService } from './services/property-type.service';
 import { PropertyTypeController } from './controllers/property-type.controller';
+import { applyMiddlewareHooks } from 'src/common/helpers/entity.helpers';
 
 @Module({
   controllers: [PropertyController, PropertyTypeController],
   providers: [PropertyService, PropertyTypeService],
   imports: [
-    MongooseModule.forFeature([
-      { name: Property.name, schema: PropertySchema },
-      { name: PropertyType.name, schema: PropertyTypeSchema },
+    MongooseModule.forFeatureAsync([
+      { name: Property.name, useFactory: () => applyMiddlewareHooks(PropertySchema) },
+      { name: PropertyType.name, useFactory: () => PropertyTypeSchema },
     ]),
   ],
 })

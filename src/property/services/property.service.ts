@@ -39,12 +39,12 @@ export class PropertyService {
    * Property Type Contraints:
    * - unique
    */
-  async create(payload: PropertyDTO.CreatePropertyRequestDto): Promise<Property> {
-    const propertyType = await this.propertyTypeService.findOne(payload.propertyType);
+  async create({ type, ...payload }: PropertyDTO.CreatePropertyRequestDto): Promise<Property> {
+    const propertyType = await this.propertyTypeService.findOne(type);
 
     return await this.model.create({
-      name: payload.name,
       propertyType,
+      ...payload,
     });
   }
 

@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 
 import { Status } from 'src/common/enums/status.enum';
+import { BaseSchemaFactory } from 'src/common/interfaces/base.entity';
 import { PropertyType } from 'src/property/entities/property-type.entity';
 import { PropertyAddress } from './property-address.entity';
 
@@ -20,4 +21,13 @@ export class Property extends mongoose.Document {
   address: PropertyAddress;
 }
 
-export const PropertySchema = SchemaFactory.createForClass(Property);
+export const PropertySchema: BaseSchemaFactory<Property> = {
+  schema: SchemaFactory.createForClass(Property),
+  hooks: {
+    pre: {
+      save: () => {
+        console.log('Pre Save Hook on Property Schema Called');
+      },
+    },
+  },
+};

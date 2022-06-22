@@ -1,4 +1,4 @@
-import { IsString, IsUppercase, Length } from 'class-validator';
+import { IsOptional, IsString, IsUppercase, Length } from 'class-validator';
 
 export class CreatePropertyAddressRequestDto {
   @IsString()
@@ -19,8 +19,10 @@ export class CreatePropertyAddressRequestDto {
   country: string;
 
   @IsString()
+  @IsOptional()
   additionalAddressLine1?: string;
 
   @IsString()
+  @IsOptional()
   additionalAddressLine2?: string;
 }

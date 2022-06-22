@@ -1,4 +1,5 @@
-import { IsMongoId, IsOptional, IsString, IsUppercase, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsDefined, IsMongoId, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { BaseFilterDto, BaseRemoveOptionsDto } from 'src/common/interfaces/base.dto';
 import { CreatePropertyAddressRequestDto } from './property-address.dto';
 
@@ -10,11 +11,12 @@ export class CreatePropertyRequestDto {
   name: string;
 
   @IsMongoId()
-  @IsUppercase()
-  propertyType: string;
+  type: string;
 
+  @Type(() => CreatePropertyAddressRequestDto)
   @ValidateNested()
-  propertyAddress: CreatePropertyAddressRequestDto;
+  @IsDefined()
+  address: CreatePropertyAddressRequestDto;
 }
 
 export class ActivatePropertyRequestDto {
