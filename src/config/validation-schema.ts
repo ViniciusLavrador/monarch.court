@@ -11,5 +11,8 @@ export default Joi.object<ConfigInterface>({
   DB_URI: Joi.string().uri().required(),
   DB_USER: Joi.string().required(),
 
+  JWT_SECRET: Joi.string().required(),
+  JWT_EXPIRES_IN: Joi.string().required(),
+
   GCM_API_KEY: Joi.string().required(),
 });

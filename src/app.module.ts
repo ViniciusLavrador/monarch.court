@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 
-import { AppController } from './app.controller';
+import { AppController } from 'src/app.controller';
 
-import { ConfigInterface, loader, validationSchema } from './config';
-import { UsersModule } from './users/users.module';
-import { PropertyModule } from './property/property.module';
+import { ConfigInterface, loader, validationSchema } from 'src/config';
+import { AuthModule } from 'src/auth/auth.module';
+import { PropertyModule } from 'src/property/property.module';
 
 @Module({
   imports: [
@@ -27,7 +27,7 @@ import { PropertyModule } from './property/property.module';
       }),
     }),
 
-    UsersModule,
+    AuthModule,
     PropertyModule,
   ],
   controllers: [AppController],

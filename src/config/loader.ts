@@ -10,5 +10,8 @@ export default (): ConfigInterface => ({
   DB_URI: process.env.DB_URI,
   DB_USER: process.env.DB_USER,
 
+  JWT_SECRET: process.env.JWT_SECRET,
+  JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN,
+
   GCM_API_KEY: process.env.GCM_API_KEY,
 });
