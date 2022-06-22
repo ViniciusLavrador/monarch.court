@@ -1,5 +1,4 @@
 import { ConfigService } from '@nestjs/config';
-import { ModuleRef } from '@nestjs/core';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 
@@ -8,7 +7,7 @@ import { BaseSchemaFactory } from 'src/common/interfaces/base.entity';
 import { ConfigInterface } from 'src/config';
 import { PropertyType } from 'src/property/entities/property-type.entity';
 import { GoogleMapsService } from '../services/google-maps.service';
-import { AddressPoint, AddressPointType } from './address-point.entity';
+import { AddressPointType } from './address-point.entity';
 import { PropertyAddress } from './property-address.entity';
 
 @Schema()
