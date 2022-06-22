@@ -5,6 +5,9 @@ export class CreatePropertyAddressRequestDto {
   street: string;
 
   @IsString()
+  number: string;
+
+  @IsString()
   zipcode: string;
 
   @IsString()

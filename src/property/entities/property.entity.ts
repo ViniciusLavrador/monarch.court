@@ -1,9 +1,14 @@
+import { ConfigService } from '@nestjs/config';
+import { ModuleRef } from '@nestjs/core';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 
 import { Status } from 'src/common/enums/status.enum';
 import { BaseSchemaFactory } from 'src/common/interfaces/base.entity';
+import { ConfigInterface } from 'src/config';
 import { PropertyType } from 'src/property/entities/property-type.entity';
+import { GoogleMapsService } from '../services/google-maps.service';
+import { AddressPoint, AddressPointType } from './address-point.entity';
 import { PropertyAddress } from './property-address.entity';
 
 @Schema()
@@ -25,8 +30,17 @@ export const PropertySchema: BaseSchemaFactory<Property> = {
   schema: SchemaFactory.createForClass(Property),
   hooks: {
     pre: {
-      save: () => {
-        console.log('Pre Save Hook on Property Schema Called');
+      // This must run before validation (pre-validation) because `location` is required in the Address Entity
+      validate: async function () {
+        const config = new ConfigService<ConfigInterface>();
+        const googleMapsService = new GoogleMapsService(config);
+
+        const { lat, lng } = await googleMapsService.getCoordinates(this.address);
+
+        this.address.location = {
+          type: AddressPointType.POINT,
+          coordinates: [lat, lng],
+        };
       },
     },
   },
