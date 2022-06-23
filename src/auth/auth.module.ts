@@ -8,6 +8,7 @@ import { User, UserSchema } from 'src/auth/entities/user.entity';
 import { AuthService } from 'src/auth/services/auth.service';
 import { JwtService } from 'src/auth/services/jwt.service';
 import { JwtStrategy } from 'src/auth/strategies/jwt.strategy';
+import { UserManagementController } from './controllers/user-management.controller';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { JwtStrategy } from 'src/auth/strategies/jwt.strategy';
     }),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
-  controllers: [AuthController],
+  controllers: [AuthController, UserManagementController],
   providers: [AuthService, JwtService, JwtStrategy],
   exports: [AuthService],
 })
