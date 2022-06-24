@@ -8,7 +8,7 @@ import { applyDocTags } from './common/helpers/setup.helpers';
 import { ConfigInterface } from './config';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
 
   // Instantiate config service
   const configService = app.get<ConfigService<ConfigInterface>>(ConfigService);
